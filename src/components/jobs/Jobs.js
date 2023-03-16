@@ -5,7 +5,7 @@ import { fetchJobs } from "../../features/job/JobSlice";
 
 export default function Jobs() {
   const dispatch = useDispatch();
-  const { jobs, filter, isLoading, error } = useSelector(
+  const { jobs, filter, search, isLoading, error } = useSelector(
     (state) => state.job
   );
 
@@ -27,14 +27,19 @@ export default function Jobs() {
     }
   });
 
+  const searchedJobs = filteredJobs.filter((job) => {
+    // Replace 'job.title' with the appropriate property name from your job object that represents the job title
+    return job.title.toLowerCase().includes(search.toLowerCase());
+  });
+
   let content = null;
 
   if (isLoading) {
     content = <div className="text-center">Loading...</div>;
   } else if (error) {
     content = <div className="text-center">{error}</div>;
-  } else if (filteredJobs.length > 0) {
-    content = filteredJobs.map((job) => <Job key={job.id} job={job} />);
+  } else if (searchedJobs.length > 0) {
+    content = searchedJobs.map((job) => <Job key={job.id} job={job} />);
   } else {
     content = <div className="text-center">No jobs found</div>;
   }

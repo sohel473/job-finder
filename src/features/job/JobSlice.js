@@ -48,6 +48,9 @@ export const jobSlice = createSlice({
     setJobFilter: (state, action) => {
       state.filter = action.payload;
     },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -114,4 +117,4 @@ export const jobSlice = createSlice({
 });
 
 export default jobSlice.reducer;
-export const { setJobFilter } = jobSlice.actions;
+export const { setJobFilter, setSearch } = jobSlice.actions;

@@ -1,6 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../../features/job/JobSlice";
 
 export default function Search() {
+  const dispatch = useDispatch();
+
+  const handleSearch = (e) => {
+    dispatch(setSearch(e.target.value));
+  };
+
   return (
     <>
       <div className="search-field group flex-1">
@@ -10,6 +18,7 @@ export default function Search() {
           placeholder="Search Job"
           className="search-input"
           id="lws-searchJob"
+          onChange={handleSearch}
         />
       </div>
     </>
