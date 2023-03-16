@@ -5,7 +5,7 @@ import { fetchJobs } from "../../features/job/JobSlice";
 
 export default function Jobs() {
   const dispatch = useDispatch();
-  const { jobs, filter, search, isLoading, error } = useSelector(
+  const { jobs, filter, search, sort, isLoading, error } = useSelector(
     (state) => state.job
   );
 
@@ -23,14 +23,31 @@ export default function Jobs() {
       case "remote":
         return job.type === "Remote";
       default:
-        return true; // Show all jobs if no filter is applied
+        return true;
     }
   });
 
+  // Filter jobs based on the search input
   const searchedJobs = filteredJobs.filter((job) => {
-    // Replace 'job.title' with the appropriate property name from your job object that represents the job title
     return job.title.toLowerCase().includes(search.toLowerCase());
   });
+
+  // Sort jobs based on the selected sort
+  const sortedJobs = searchedJobs.sort((a, b) => {
+    const aSalary = Number(a.salary.replace(/,/g, ""));
+    const bSalary = Number(b.salary.replace(/,/g, ""));
+
+    switch (sort) {
+      case "lowToHigh":
+        return aSalary - bSalary;
+      case "highToLow":
+        return bSalary - aSalary;
+      default:
+        return 0;
+    }
+  });
+
+  console.log("sortedJobs:", sortedJobs);
 
   let content = null;
 
@@ -38,8 +55,8 @@ export default function Jobs() {
     content = <div className="text-center">Loading...</div>;
   } else if (error) {
     content = <div className="text-center">{error}</div>;
-  } else if (searchedJobs.length > 0) {
-    content = searchedJobs.map((job) => <Job key={job.id} job={job} />);
+  } else if (sortedJobs.length > 0) {
+    content = sortedJobs.map((job) => <Job key={job.id} job={job} />);
   } else {
     content = <div className="text-center">No jobs found</div>;
   }

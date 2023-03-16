@@ -6,7 +6,7 @@ const initialState = {
   job: {},
   filter: "all",
   search: "",
-  sort: "asc",
+  sort: "default",
   isLoading: false,
   error: null,
 };
@@ -50,6 +50,9 @@ export const jobSlice = createSlice({
     },
     setSearch: (state, action) => {
       state.search = action.payload;
+    },
+    setSort: (state, action) => {
+      state.sort = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -117,4 +120,4 @@ export const jobSlice = createSlice({
 });
 
 export default jobSlice.reducer;
-export const { setJobFilter, setSearch } = jobSlice.actions;
+export const { setJobFilter, setSearch, setSort } = jobSlice.actions;
