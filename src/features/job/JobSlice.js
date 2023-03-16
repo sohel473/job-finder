@@ -4,7 +4,7 @@ import { getJobs, getJob, addJob, updateJob, deleteJob } from "./JobAPI";
 const initialState = {
   jobs: [],
   job: {},
-  filter: "",
+  filter: "all",
   search: "",
   sort: "asc",
   isLoading: false,
@@ -44,6 +44,11 @@ export const removeJob = createAsyncThunk("job/deleteJob", async (id) => {
 export const jobSlice = createSlice({
   name: "job",
   initialState,
+  reducers: {
+    setJobFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchJobs.pending, (state) => {
@@ -109,3 +114,4 @@ export const jobSlice = createSlice({
 });
 
 export default jobSlice.reducer;
+export const { setJobFilter } = jobSlice.actions;

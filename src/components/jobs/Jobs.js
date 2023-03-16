@@ -5,11 +5,27 @@ import { fetchJobs } from "../../features/job/JobSlice";
 
 export default function Jobs() {
   const dispatch = useDispatch();
-  const { jobs, isLoading, error } = useSelector((state) => state.job);
+  const { jobs, filter, isLoading, error } = useSelector(
+    (state) => state.job
+  );
 
   React.useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
+
+  // Filter jobs based on the selected filter
+  const filteredJobs = jobs.filter((job) => {
+    switch (filter) {
+      case "internship":
+        return job.type === "Internship";
+      case "fulltime":
+        return job.type === "Full Time";
+      case "remote":
+        return job.type === "Remote";
+      default:
+        return true; // Show all jobs if no filter is applied
+    }
+  });
 
   let content = null;
 
@@ -17,8 +33,8 @@ export default function Jobs() {
     content = <div className="text-center">Loading...</div>;
   } else if (error) {
     content = <div className="text-center">{error}</div>;
-  } else if (jobs.length > 0) {
-    content = jobs.map((job) => <Job key={job.id} job={job} />);
+  } else if (filteredJobs.length > 0) {
+    content = filteredJobs.map((job) => <Job key={job.id} job={job} />);
   } else {
     content = <div className="text-center">No jobs found</div>;
   }
