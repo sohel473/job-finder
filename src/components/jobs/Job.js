@@ -1,25 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Job() {
+export default function Job(props) {
+  const { job } = props;
+
+  let jobColor = "";
+  if (job.type === "Full Time") {
+    jobColor = "#FF8A00";
+  } else if (job.type === "Internship") {
+    jobColor = "#FF5757";
+  } else if (job.type === "Remote") {
+    jobColor = "#56E5C4";
+  }
+
   return (
     <>
       <div className="job">
         <div className="flex-1 min-w-0">
-          <h2 className="lws-title">Back End Developer</h2>
+          <h2 className="lws-title">{job.title}</h2>
           <div className="job-footers">
             <div className="lws-type">
               {/* <!-- Fulltime - #FF8A00,  --><!-- Internship - #FF5757,  --><!-- Remote - #56E5C4,  --> */}
-              <i className="fa-solid fa-stop !text-[#FF8A00] text-lg mr-1.5"></i>
-              Full-time
+              <i
+                className={`fa-solid fa-stop !text-[${jobColor}] text-lg mr-1.5`}
+              ></i>
+              {job.type}
             </div>
             <div className="lws-salary">
               <i className="fa-solid fa-bangladeshi-taka-sign text-slate-400 text-lg mr-1.5"></i>
-              BDT 40,000
+              {job.salary}
             </div>
             <div className="lws-deadline">
               <i className="fa-regular fa-calendar text-slate-400 text-lg mr-1.5"></i>
-              Closing on January 9, 2020
+              {job.deadline}
             </div>
           </div>
         </div>

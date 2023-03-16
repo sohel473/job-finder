@@ -22,6 +22,7 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Job List */}
             <Jobs />
           </main>
         </div>
