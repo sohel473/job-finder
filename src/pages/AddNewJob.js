@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import Sidebar from "../components/sidebar/Sidebar";
 import { createJob } from "../features/job/JobSlice";
 
 export default function AddNewJob() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [jobForm, setJobForm] = useState({
     lwsJobTitle: "",
@@ -38,6 +40,7 @@ export default function AddNewJob() {
     };
 
     dispatch(createJob(formattedJob));
+    navigate("/");
   };
 
   return (
