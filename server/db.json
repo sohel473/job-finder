@@ -34,6 +34,13 @@
       "type": "Full Time",
       "salary": "120,000",
       "deadline": "May 2, 2023"
+    },
+    {
+      "id": "1679007713535",
+      "title": "QA Engineer",
+      "type": "Remote",
+      "salary": "15,000",
+      "deadline": "March 18, 2023"
     }
   ]
 }

@@ -1,7 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { format } from "date-fns";
 import Sidebar from "../components/sidebar/Sidebar";
+import { createJob } from "../features/job/JobSlice";
 
 export default function AddNewJob() {
+  const dispatch = useDispatch();
+
+  const [jobForm, setJobForm] = useState({
+    lwsJobTitle: "",
+    lwsJobType: "",
+    lwsJobSalary: "",
+    lwsJobDeadline: "",
+  });
+
+  const handleChange = (e) => {
+    setJobForm({
+      ...jobForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formattedSalary = Number(jobForm.lwsJobSalary).toLocaleString();
+    const formattedDeadline = format(
+      new Date(jobForm.lwsJobDeadline),
+      "MMMM d, yyyy"
+    );
+
+    const formattedJob = {
+      id: Date.now().toString(),
+      title: jobForm.lwsJobTitle,
+      type: jobForm.lwsJobType,
+      salary: formattedSalary,
+      deadline: formattedDeadline,
+    };
+
+    dispatch(createJob(formattedJob));
+  };
+
   return (
     <>
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 md:px-8">
@@ -13,10 +51,10 @@ export default function AddNewJob() {
             </h1>
 
             <div className="max-w-3xl mx-auto">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="fieldContainer">
                   <label
-                    for="lwsJobTitle"
+                    htmlFor="lwsJobTitle"
                     className="text-sm font-medium text-slate-300"
                   >
                     Job Title
@@ -26,8 +64,10 @@ export default function AddNewJob() {
                     name="lwsJobTitle"
                     autoComplete="lwsJobTitle"
                     required
+                    value={jobForm.lwsJobTitle}
+                    onChange={handleChange}
                   >
-                    <option value="" hidden selected>
+                    <option value="" hidden defaultValue>
                       Select Job
                     </option>
                     <option>Software Engineer</option>
@@ -47,14 +87,16 @@ export default function AddNewJob() {
                   </select>
                 </div>
                 <div className="fieldContainer">
-                  <label for="lwsJobType">Job Type</label>
+                  <label htmlFor="lwsJobType">Job Type</label>
                   <select
                     id="lwsJobType"
                     name="lwsJobType"
                     autoComplete="lwsJobType"
                     required
+                    value={jobForm.lwsJobType}
+                    onChange={handleChange}
                   >
-                    <option value="" hidden selected>
+                    <option value="" hidden defaultValue>
                       Select Job Type
                     </option>
                     <option>Full Time</option>
@@ -64,7 +106,7 @@ export default function AddNewJob() {
                 </div>
 
                 <div className="fieldContainer">
-                  <label for="lwsJobSalary">Salary</label>
+                  <label htmlFor="lwsJobSalary">Salary</label>
                   <div className="flex border rounded-md shadow-sm border-slate-600">
                     <span className="input-tag">BDT</span>
                     <input
@@ -74,17 +116,21 @@ export default function AddNewJob() {
                       required
                       className="!rounded-l-none !border-0"
                       placeholder="20,00,000"
+                      value={jobForm.lwsJobSalary}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
 
                 <div className="fieldContainer">
-                  <label for="lwsJobDeadline">Deadline</label>
+                  <label htmlFor="lwsJobDeadline">Deadline</label>
                   <input
                     type="date"
                     name="lwsJobDeadline"
                     id="lwsJobDeadline"
                     required
+                    value={jobForm.lwsJobDeadline}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="text-right">

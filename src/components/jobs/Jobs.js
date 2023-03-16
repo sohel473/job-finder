@@ -47,7 +47,7 @@ export default function Jobs() {
     }
   });
 
-  console.log("sortedJobs:", sortedJobs);
+  // console.log("sortedJobs:", sortedJobs);
 
   let content = null;
 

@@ -14,7 +14,7 @@ export default function EditJob() {
               <form className="space-y-6">
                 <div className="fieldContainer">
                   <label
-                    for="lwsJobTitle"
+                    htmlFor="lwsJobTitle"
                     className="text-sm font-medium text-slate-300"
                   >
                     Job Title
@@ -46,7 +46,7 @@ export default function EditJob() {
                 </div>
 
                 <div className="fieldContainer">
-                  <label for="lwsJobType">Job Type</label>
+                  <label htmlFor="lwsJobType">Job Type</label>
                   <select
                     id="lwsJobType"
                     name="lwsJobType"
@@ -63,7 +63,7 @@ export default function EditJob() {
                 </div>
 
                 <div className="fieldContainer">
-                  <label for="lwsJobSalary">Salary</label>
+                  <label htmlFor="lwsJobSalary">Salary</label>
                   <div className="flex border rounded-md shadow-sm border-slate-600">
                     <span className="input-tag">BDT</span>
                     <input
@@ -78,7 +78,7 @@ export default function EditJob() {
                 </div>
 
                 <div className="fieldContainer">
-                  <label for="lwsJobDeadline">Deadline</label>
+                  <label htmlFor="lwsJobDeadline">Deadline</label>
                   <input
                     type="date"
                     name="lwsJobDeadline"
