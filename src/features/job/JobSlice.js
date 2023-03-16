@@ -25,7 +25,6 @@ export const fetchJob = createAsyncThunk("job/fetchJob", async (id) => {
 
 export const createJob = createAsyncThunk("job/createJob", async (job) => {
   const response = await addJob(job);
-
   return response;
 });
 
