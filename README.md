@@ -1,46 +1,48 @@
-# Getting Started with Create React App and Redux
+# Project Readme
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+This project is a web application that displays job postings fetched from a JSON server. The application is built using React Router Dom and Redux Store.
 
-## Available Scripts
+## Requirements
 
-In the project directory, you can run:
+The following are the requirements for this project:
 
-### `npm start`
+- Jobs should be fetched from the JSON server and displayed in the list. Different color codes are given for 'Internship', 'Full Time', 'Remote' jobs, according to that color code should be shown in the list.
+- If you click on 'Add New Job' from the sidebar, you will be taken to the 'Create' page using the React Router Dom and if you click on the Save button with the required information, it will go to the Redux Store and be saved.
+- If you click on 'All Available Jobs' from the sidebar, all the jobs will be shown. If you click on Internship, only the jobs of 'Internship' will be shown. Similarly, if you click on 'Full Time' and 'Remote' jobs, only 'Full Time' and 'Remote' jobs will be filtered.
+- If you click on the edit button, it will take you to the edit page, and you will be able to edit all the details of the job. After changing the information and clicking on the Edit button, the information will be changed and will go to the 'All Available' page.
+- On clicking the delete button, the job will be deleted.
+- Search feature should be added. In that case, the job search will only be done by the job title, and it should be done on the client-side, not on the server-side.
+- There is a filter dropdown next to search, clicking on it will sort according to Salary. That is, sometimes the salary will be sorted from 'low to high' (ascending), and sometimes 'high to low' (descending). This needs to be done on the client-side, not the server-side.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Clone the repository to your local machine.
 
-### `npm test`
+First of all, run the server. to do that, follow the instructions below:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+0. Open new terminal.
+1. Change Directory using the command `cd server`
+2. Install the dependencies using the command `npm install`.
+3. Start the application using the command `npm start`.
+4. Access the server by opening `http://localhost:9000` in your browser.
 
-### `npm run build`
+Then to run this project, follow the instructions below:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+0. Open another terminal.
+1. Install the dependencies using the command `npm install`.
+2. Start the JSON Server using the command `npm run server`.
+3. Start the application using the command `npm start`.
+4. Access the application by opening `http://localhost:3000` in your browser.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technologies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This project was built using the following technologies:
 
-### `npm run eject`
+- React.js
+- Redux Toolkit
+- JSON Server
+- JavaScript
+- HTML
+- CSS
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Deployed Link: https://job-finder-sohel473.netlify.app/jobs
