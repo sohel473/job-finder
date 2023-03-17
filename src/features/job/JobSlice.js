@@ -36,7 +36,7 @@ export const editJob = createAsyncThunk("job/updateJob", async (job) => {
 
 export const removeJob = createAsyncThunk("job/deleteJob", async (id) => {
   const response = await deleteJob(id);
-
+  console.log(response);
   return response;
 });
 
@@ -108,7 +108,7 @@ export const jobSlice = createSlice({
       .addCase(removeJob.fulfilled, (state, action) => {
         state.isLoading = false;
         state.jobs = state.jobs.filter(
-          (job) => job.id !== action.payload.id
+          (job) => job.id !== action.meta.arg
         );
       })
       .addCase(removeJob.rejected, (state, action) => {

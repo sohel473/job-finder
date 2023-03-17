@@ -47,7 +47,7 @@ export default function Job(props) {
         <div className="mt-5 flex lg:mt-0 lg:ml-4">
           <span className="hidden sm:block">
             <Link
-              to={`/editJob/${1}`}
+              to={`/editJob/${job.id}`}
               className="lws-edit btn btn-primary"
             >
               <i className="fa-solid fa-pen text-gray-300 -ml-1 mr-2"></i>

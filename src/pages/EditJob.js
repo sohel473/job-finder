@@ -1,7 +1,97 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Sidebar from "../components/sidebar/Sidebar";
+import { fetchJob, editJob } from "../features/job/JobSlice";
+import { format } from "date-fns";
 
 export default function EditJob() {
+  const dispatch = useDispatch();
+  const job = useSelector((state) => state.job.job);
+  const [extraJobTitle, setExtraJobTitle] = useState("");
+
+  const [jobForm, setJobForm] = useState({
+    lwsJobTitle: "",
+    lwsJobType: "",
+    lwsJobSalary: "",
+    lwsJobDeadline: "",
+  });
+
+  const { jobId } = useParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchJob(jobId));
+  }, [dispatch, jobId]);
+
+  useEffect(() => {
+    const jobTitles = [
+      "Software Engineer",
+      "Software Developer",
+      "Full Stack Developer",
+      "MERN Stack Developer",
+      "DevOps Engineer",
+      "QA Engineer",
+      "Product Manager",
+      "Social Media Manager",
+      "Senior Executive",
+      "Junior Executive",
+      "Android App Developer",
+      "IOS App Developer",
+      "Frontend Developer",
+      "Frontend Engineer",
+    ];
+
+    if (job.title && !jobTitles.includes(job.title)) {
+      setExtraJobTitle(job.title);
+    } else {
+      setExtraJobTitle("");
+    }
+
+    setJobForm({
+      lwsJobTitle: job.title || "",
+      lwsJobType: job.type || "",
+      lwsJobSalary: job.salary
+        ? parseInt(job.salary.replace(/,/g, ""), 10)
+        : "",
+      lwsJobDeadline: job.deadline
+        ? format(new Date(job.deadline), "yyyy-MM-dd")
+        : "",
+    });
+  }, [job]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setJobForm({ ...jobForm, [name]: value });
+  };
+
+  // console.log("Before update");
+  // console.log(job);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formattedSalary = Number(jobForm.lwsJobSalary).toLocaleString();
+    const formattedDeadline = format(
+      new Date(jobForm.lwsJobDeadline),
+      "MMMM d, yyyy"
+    );
+
+    const formattedJob = {
+      id: job.id,
+      title: jobForm.lwsJobTitle,
+      type: jobForm.lwsJobType,
+      salary: formattedSalary,
+      deadline: formattedDeadline,
+    };
+    dispatch(editJob(formattedJob));
+    navigate("/");
+
+    // console.log("After update");
+    // console.log(formattedJob);
+  };
+
   return (
     <>
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 md:px-8">
@@ -11,7 +101,7 @@ export default function EditJob() {
             <h1 className="mb-10 text-center section-title">Edit Job</h1>
 
             <div className="max-w-3xl mx-auto">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="fieldContainer">
                   <label
                     htmlFor="lwsJobTitle"
@@ -24,8 +114,10 @@ export default function EditJob() {
                     name="lwsJobTitle"
                     autoComplete="lwsJobTitle"
                     required
+                    value={jobForm.lwsJobTitle}
+                    onChange={handleInputChange}
                   >
-                    <option value="" hidden selected>
+                    <option value="" hidden defaultValue>
                       Select Job
                     </option>
                     <option>Software Engineer</option>
@@ -42,6 +134,7 @@ export default function EditJob() {
                     <option>IOS App Developer</option>
                     <option>Frontend Developer</option>
                     <option>Frontend Engineer</option>
+                    {extraJobTitle && <option>{extraJobTitle}</option>}
                   </select>
                 </div>
 
@@ -52,8 +145,10 @@ export default function EditJob() {
                     name="lwsJobType"
                     autoComplete="lwsJobType"
                     required
+                    value={jobForm.lwsJobType}
+                    onChange={handleInputChange}
                   >
-                    <option value="" hidden selected>
+                    <option value="" hidden defaultValue>
                       Select Job Type
                     </option>
                     <option>Full Time</option>
@@ -73,6 +168,8 @@ export default function EditJob() {
                       required
                       className="!rounded-l-none !border-0"
                       placeholder="20,00,000"
+                      value={jobForm.lwsJobSalary}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
@@ -84,6 +181,8 @@ export default function EditJob() {
                     name="lwsJobDeadline"
                     id="lwsJobDeadline"
                     required
+                    value={jobForm.lwsJobDeadline}
+                    onChange={handleInputChange}
                   />
                 </div>
 
