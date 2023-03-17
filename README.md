@@ -45,4 +45,4 @@ This project was built using the following technologies:
 - HTML
 - CSS
 
-Deployed Link: https://job-finder-sohel473.netlify.app/jobs
+Deployed Link: https://job-finder-sohel473.netlify.app/
