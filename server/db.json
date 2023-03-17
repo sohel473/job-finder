@@ -2,10 +2,10 @@
   "jobs": [
     {
       "id": "1",
-      "title": "Software Engineer",
+      "title": "IOS App Developer",
       "type": "Remote",
-      "salary": "1,500,000",
-      "deadline": "May 20, 2023"
+      "salary": "2,500,000",
+      "deadline": "June 30, 2023"
     },
     {
       "id": "2",
@@ -20,13 +20,6 @@
       "type": "Full Time",
       "salary": "90,000",
       "deadline": "June 25, 2023"
-    },
-    {
-      "id": "4",
-      "title": "Frontend Developer",
-      "type": "Internship",
-      "salary": "75,000",
-      "deadline": "July 2, 2023"
     },
     {
       "id": "1679015660994",
